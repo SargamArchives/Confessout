@@ -1,9 +1,14 @@
 import React from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
 
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    document.title = `Confessout - Signin`;
+    return () => (document.title = "Confessout");
+  });
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
