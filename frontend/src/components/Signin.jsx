@@ -1,11 +1,12 @@
 import React from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 
-function Signup() {
+function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   useEffect(() => {
-    document.title = `Confessout - Signup`;
+    document.title = `Confessout - Signin`;
     return () => (document.title = "Confessout");
   });
   return (
@@ -19,10 +20,15 @@ function Signup() {
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Create your new account
+              Sign in to your account
             </h2>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-6">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="mt-8 space-y-6"
+            action="#"
+            method="POST"
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -46,6 +52,7 @@ function Signup() {
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
@@ -56,12 +63,14 @@ function Signup() {
               </div>
             </div>
 
+            <div className="flex items-center justify-between"></div>
+
             <div>
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign up
+                Sign in
               </button>
             </div>
           </form>
@@ -71,4 +80,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;

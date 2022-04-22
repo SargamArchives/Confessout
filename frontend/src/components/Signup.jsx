@@ -1,12 +1,10 @@
-import React from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import React, { useEffect, useState } from "react";
 
-function Signin() {
+function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   useEffect(() => {
-    document.title = `Confessout - Signin`;
+    document.title = `Confessout - Signup`;
     return () => (document.title = "Confessout");
   });
   return (
@@ -20,15 +18,10 @@ function Signin() {
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+              Create your new account
             </h2>
           </div>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-8 space-y-6"
-            action="#"
-            method="POST"
-          >
+          <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -52,7 +45,6 @@ function Signin() {
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
@@ -63,14 +55,12 @@ function Signin() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between"></div>
-
             <div>
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign in
+                Sign up
               </button>
             </div>
           </form>
@@ -80,4 +70,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default Signup;
