@@ -1,20 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { InboxInIcon, DocumentDuplicateIcon } from "@heroicons/react/outline";
-import users from "../data";
+import { baseUrl } from "../default";
 
-function Profile() {
-  const username = "sargam";
+function Profile({ isLoggedIn }) {
+  console.log(isLoggedIn);
   const url = location.origin;
-  const fullUrl = `${url}/u/${username}`;
+  let username = localStorage.getItem("username ");
+  const [fullUrl, setFullUrl] = useState(`${url}/u/${username}`);
+  const [data, setData] = useState([]);
 
   const copyText = () => {
     navigator.clipboard.writeText(fullUrl);
   };
 
   useEffect(() => {
+    if (isLoggedIn) {
+      username = localStorage.getItem("username");
+      setFullUrl(`${url}/u/${username}`);
+      fetch_confesses();
+    }
+  }, [isLoggedIn]);
+
+  const fetch_confesses = async () => {
+    const res = await fetch(`${baseUrl}/get?u=${username}`);
+    const data = await res.json();
+    console.log(data);
+    setData(data);
+  };
+
+  useEffect(() => {
     document.title = `Confessout - ${username}`;
     return () => (document.title = "Confessout");
-  });
+  }, [username]);
+
+  if (!isLoggedIn) {
+    return (
+      <div className="flex justify-center w-screen">
+        <section className="container  lg:p-20 sm:p-10">Login first</section>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center w-screen">
@@ -44,12 +69,10 @@ function Profile() {
           </div>
           <section>
             <ul>
-              {users.map((user, index) => (
-                <li key={index}>
-                  <div id={index} className="font-bold text-2xl">
-                    {user.user}
-                  </div>
-                  <div>{user.message}</div>
+              {data.map((message, index) => (
+                <li key={index} className="p-4 border-2 my-2">
+                  <div className="font-bold text-2xl">{"Anynomous"}</div>
+                  <div>{message}</div>
                 </li>
               ))}
             </ul>

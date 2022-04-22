@@ -5,8 +5,16 @@ import Confess from "./components/Confess";
 import Home from "./components/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from "./components/Profile";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("username") && localStorage.getItem("password")) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <>
       <BrowserRouter>
@@ -15,7 +23,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={<Profile isLoggedIn={isLoggedIn} />}
+          />
           <Route path="/u/:username" element={<Confess />} />
         </Routes>
       </BrowserRouter>
